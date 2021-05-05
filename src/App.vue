@@ -1,28 +1,50 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Layout>
+      <template #left>
+        <div class="left">
+          <SiteAside />
+        </div>
+      </template>
+      <div class="main">
+        <RouterView />
+      </div>
+    </Layout>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import SiteAside from "@/components/SiteAside";
+import Layout from "@/components/LayOut";
 export default {
-  name: 'App',
+  name: "myapp", //如果组件在没有注册的时候（vue tool中显示的名称）指定名称，会使用该名称
+  data() {
+    return {};
+  },
   components: {
-    HelloWorld
-  }
-}
+    SiteAside,
+    Layout,
+  },
+  methods: {},
+};
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+@import "~@/styles/mixin.less";
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  .self-fill(fixed);
+  .left {
+    width: 230px;
+
+    height: 100%;
+  }
+  .main {
+    box-sizing: border-box;
+    width: 100%;
+    background: lightblue;
+    padding: 10px;
+    height: 100%;
+  }
 }
 </style>
