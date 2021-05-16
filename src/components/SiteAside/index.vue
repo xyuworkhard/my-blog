@@ -40,6 +40,7 @@ export default {
 .footer {
   text-align: center;
   font-size: 12px;
+  color: #666;
 }
 .title {
   font-size: 1em;
