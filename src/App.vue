@@ -42,8 +42,6 @@ export default {
   .main {
     box-sizing: border-box;
     width: 100%;
-    // background: lightblue;
-    // padding: 10px;
     height: 100%;
   }
 }

@@ -120,7 +120,7 @@ export default {
 <style scoped lang="less">
 @import "~@/styles/colorVar.less"; //css导入~@代表src目录
 .pager-container {
-  margin: 5px 0;
+  margin: 10px 0 5px;
   display: flex;
   justify-content: center;
   .page-number {

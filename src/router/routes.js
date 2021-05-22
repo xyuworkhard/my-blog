@@ -1,6 +1,7 @@
 import Home from '@/views/Home'
 import About from '@/views/About'
 import Blog from '@/views/Blog'
+import BlogDetail from '@/views/Blog/Detail'
 import Message from '@/views/Message'
 import Project from '@/views/Project'
 const routes = [
@@ -11,8 +12,10 @@ const routes = [
         path: '/about', component: About, name: 'about'
     },
     {
-        path: '/blog', component: Blog, name: 'blog'
+        path: '/article', component: Blog, name: 'blog'
     },
+    { path: "/article/cate/:categoryId", component: Blog, name: "CategoryBlog" },
+    { path: "/article/:id", component: BlogDetail, name: "BlogDetail" },
     {
         path: '/message', component: Message, name: 'message'
     },

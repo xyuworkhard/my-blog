@@ -12,7 +12,7 @@
       }"
       @transitionend="handleTransitionEnd"
     >
-      <li v-for="item in banners" :key="item.id">
+      <li v-for="item in fetchData" :key="item.id">
         <CarouselItem :carousel="item" />
       </li>
     </ul>
@@ -20,7 +20,7 @@
       <Icon type="arrowUp" />
     </div>
     <div
-      v-show="index < banners.length - 1"
+      v-show="index < fetchData.length - 1"
       @click="switchTo(index + 1)"
       class="icon icon-down"
     >
@@ -31,7 +31,7 @@
         :class="{
           active: i === index,
         }"
-        v-for="(item, i) in banners"
+        v-for="(item, i) in fetchData"
         :key="item.id"
         @click="switchTo(i)"
       ></li>
@@ -45,24 +45,24 @@
 import { getBannerList } from "@/api/banner";
 import CarouselItem from "./Carouselitem";
 import Icon from "@/components/Icon";
+import fetchInitData from "@/mixins/getInitData";
 export default {
+  mixins: [fetchInitData],
   components: {
     CarouselItem,
     Icon,
   },
   data() {
     return {
-      banners: [],
       index: 1, // 当前显示的是第几张轮播图
       containerHeight: 0, // 整个容器的高度,
       switching: false,
-      isLoading: true,
     };
   },
-  async created() {
-    this.banners = await getBannerList();
-    this.isLoading = false;
-  },
+  // async created() {
+  //   this.fetchData = await getBannerList();
+  //   this.isLoading = false;
+  // },
   mounted() {
     this.containerHeight = this.$refs.container.clientHeight;
     window.addEventListener("resize", this.handleResize);
@@ -76,6 +76,9 @@ export default {
     },
   },
   methods: {
+    async getFetchData() {
+      return await getBannerList();
+    },
     handleTransitionEnd() {
       this.switching = false;
     },
@@ -87,7 +90,7 @@ export default {
       if (this.switching) {
         return;
       }
-      if (e.deltaY == 100 && this.index < this.banners.length - 1) {
+      if (e.deltaY == 100 && this.index < this.fetchData.length - 1) {
         this.switching = true;
         this.index++;
       } else if (e.deltaY == -100 && this.index > 0) {
@@ -98,7 +101,7 @@ export default {
       //   // 往上滚动
       //   this.switching = true;
       //   this.index--;
-      // } else if (e.deltaY > 5 && this.index < this.banners.length - 1) {
+      // } else if (e.deltaY > 5 && this.index < this.fetchData.length - 1) {
       //   // 往下滚动
       //   this.switching = true;
       //   this.index++;

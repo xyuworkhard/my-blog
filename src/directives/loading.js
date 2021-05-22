@@ -17,7 +17,6 @@ function createImg(el) {
     el.appendChild(div)
 }
 export default function (el, binding) {
-    console.log(el);
     //value值为true创建图片,false删除图片
     let value = binding.value
     if (value) {
