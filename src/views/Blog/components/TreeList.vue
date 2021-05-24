@@ -13,7 +13,7 @@
         {{ item.aside }}
       </span>
       <!-- 组件内部自我递归 -->
-      <TreeList :dataList="item.children" @getItemValue="sendData(item)" />
+      <TreeList :dataList="item.children" @select="sendData(item)" />
     </li>
   </ul>
 </template>
@@ -33,7 +33,7 @@ export default {
   methods: {
     sendData(value) {
       value.isActive = true;
-      this.$emit("getItemValue", value);
+      this.$emit("select", value);
     },
   },
 };

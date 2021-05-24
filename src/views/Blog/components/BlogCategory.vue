@@ -1,7 +1,7 @@
 <template>
   <div class="blog-category-container" v-loading="isLoading">
     <h2>文章分类</h2>
-    <TreeList :dataList="list" @getItemValue="handleSelect" />
+    <TreeList :dataList="list" @select="handleSelect" />
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import TreeList from "./TreeList";
 import fetchData from "@/mixins/getInitData.js";
 import { getAllBlogList } from "@/api/blog.js";
 export default {
-  mixins: [fetchData],
+  mixins: [fetchData()],
   components: {
     TreeList,
   },

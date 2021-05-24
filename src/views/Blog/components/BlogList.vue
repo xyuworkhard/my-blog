@@ -64,7 +64,7 @@ import fetchData from "@/mixins/getInitData.js";
 import { getSingleBlogList } from "@/api/blog.js";
 import { formatDate } from "@/utils";
 export default {
-  mixins: [fetchData],
+  mixins: [fetchData()],
   components: {
     Pager,
   },

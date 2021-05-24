@@ -47,7 +47,7 @@ import CarouselItem from "./Carouselitem";
 import Icon from "@/components/Icon";
 import fetchInitData from "@/mixins/getInitData";
 export default {
-  mixins: [fetchInitData],
+  mixins: [fetchInitData()],
   components: {
     CarouselItem,
     Icon,

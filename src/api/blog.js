@@ -22,18 +22,18 @@ export function getSingleBlogList(page = 1, limit = 10, categoryid = -1) {
 }
 
 export function getBlog(id) {
-    return request.get(`/api/blog/${id}`);
+    return request.get(`/blog/${id}`);
 }
 
 /**
  * 提交评论
  */
 export function postComment(commentInfo) {
-    return request.post(`/api/comment`, commentInfo);
+    return request.post(`/comment`, commentInfo);
 }
 
 export function getComments(blogid, page = 1, limit = 10) {
-    return request.get("/api/comment", {
+    return request.get("/comment", {
         params: {
             blogid,
             page,
