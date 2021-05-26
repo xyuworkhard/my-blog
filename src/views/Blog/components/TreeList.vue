@@ -13,7 +13,7 @@
         {{ item.aside }}
       </span>
       <!-- 组件内部自我递归 -->
-      <TreeList :dataList="item.children" @select="sendData(item)" />
+      <TreeList :dataList="item.children" @select="sendData" />
     </li>
   </ul>
 </template>

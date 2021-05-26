@@ -8,7 +8,8 @@ import '@/mock/index'
 import showMessage from './utils/showMessage'
 Vue.prototype.$message = showMessage
 
-
+//事件总线
+import './eventBus.js'
 import Loading from './directives/loading'
 Vue.directive('loading', Loading)
 new Vue({

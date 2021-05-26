@@ -6,3 +6,5 @@ export { default as showMessage } from './showMessage'
 export { default as getDomFromComponent } from './getDomFromComponent'
 
 export { default as formatDate } from "./formatDate";
+
+export { default as debounce } from "./debounce";
