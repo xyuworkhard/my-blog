@@ -63,8 +63,9 @@ import Pager from "@/components/Pagination";
 import fetchData from "@/mixins/getInitData.js";
 import { getSingleBlogList } from "@/api/blog.js";
 import { formatDate } from "@/utils";
+import scrollContainer from "@/mixins/scrollContainer";
 export default {
-  mixins: [fetchData()],
+  mixins: [fetchData(), scrollContainer("scrollContainer")],
   components: {
     Pager,
   },
@@ -81,15 +82,6 @@ export default {
       };
     },
   },
-  mounted() {
-    this.$bus.$on("setMainScroll", this.handleSetMainScroll);
-    this.$refs.scrollContainer.addEventListener("scroll", this.handleScroll);
-  },
-  beforeDestroy() {
-    this.$bus.$emit("scrollContainer");
-    this.$refs.scrollContainer.removeEventListener("scroll", this.handleScroll);
-    this.$bus.$off("setMainScroll", this.handleSetMainScroll);
-  },
   methods: {
     formatDate,
     async getFetchData() {
@@ -98,12 +90,6 @@ export default {
         this.routeInfo.limit,
         this.routeInfo.categoryId
       );
-    },
-    handleScroll() {
-      this.$bus.$emit("scrollContainer", this.$refs.scrollContainer);
-    },
-    handleSetMainScroll(scrollTop) {
-      this.$refs.scrollContainer.scrollTop = scrollTop;
     },
     handlePageChange(newPage) {
       const query = {

@@ -19,8 +19,10 @@ import LayOut from "@/components/LayOut";
 import Detail from "./components/BlogDetail";
 import Toc from "./components/BlogToc";
 import BlogComment from "./components/BlogComment";
+import scrollContainer from "@/mixins/scrollContainer";
 export default {
-  mixins: [getFetchData({})],
+  name: "blogDetail",
+  mixins: [getFetchData({}), scrollContainer("scrollContainer")],
   data() {
     return {
       fetchData: {},
@@ -36,16 +38,6 @@ export default {
     async getFetchData() {
       return await getBlog(this.$route.params.id);
     },
-    handleScroll() {
-      this.$bus.$emit("scrollContainer", this.$refs["scrollContainer"]);
-    },
-    handleSetMainScroll(scrollTop) {
-      this.$refs.scrollContainer.scrollTop = scrollTop;
-    },
-  },
-  mounted() {
-    this.$refs["scrollContainer"].addEventListener("scroll", this.handleScroll);
-    this.$bus.$on("setMainScroll", this.handleSetMainScroll);
   },
   updated() {
     //解决刷新不选中
@@ -54,14 +46,6 @@ export default {
     setTimeout(() => {
       location.hash = hashs;
     }, 50);
-  },
-  beforeDestroy() {
-    this.$bus.$emit("scrollContainer");
-    this.$refs["scrollContainer"].removeEventListener(
-      "scroll",
-      this.handleScroll
-    );
-    this.$bus.$off("setMainScroll", this.handleSetMainScroll);
   },
 };
 </script>
