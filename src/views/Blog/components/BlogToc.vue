@@ -60,7 +60,10 @@ export default {
     handleSelect(item) {
       location.hash = item.anchor;
     },
-    setAnchorSelect() {
+    setAnchorSelect(scrollDom) {
+      if (!scrollDom) {
+        return;
+      }
       let distance = 200;
       this.activeAnchor = "";
       for (const item of this.getAnchorDom) {

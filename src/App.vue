@@ -10,12 +10,14 @@
         <RouterView />
       </div>
     </Layout>
+    <ToTop />
   </div>
 </template>
 
 <script>
 import SiteAside from "@/components/SiteAside";
 import Layout from "@/components/LayOut";
+import ToTop from "@/components/ToTop";
 export default {
   name: "myapp", //如果组件在没有注册的时候（vue tool中显示的名称）指定名称，会使用该名称
   data() {
@@ -24,6 +26,7 @@ export default {
   components: {
     SiteAside,
     Layout,
+    ToTop,
   },
   methods: {},
 };

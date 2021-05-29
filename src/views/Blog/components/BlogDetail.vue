@@ -5,8 +5,8 @@
       <span>日期: {{ formatDate(blog.createDate) }}</span>
       <span>浏览: {{ blog.scanNumber }}</span>
       <a href="#data-form-container">评论: {{ blog.commentNumber }}</a>
-
-      <!-- <router-link
+      <router-link
+        v-if="blog.category"
         :to="{
           name: 'CategoryBlog',
           params: {
@@ -14,7 +14,7 @@
           },
         }"
         >{{ blog.category ? blog.category.name : blog.category }}</router-link
-      > -->
+      >
     </div>
     <div v-html="blog.htmlContent" class="markdown-body"></div>
   </div>

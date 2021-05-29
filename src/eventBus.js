@@ -31,5 +31,6 @@
 
 //方案 2
 import Vue from 'vue'
+//scrollContainer监听滚动事件
 Vue.prototype.$bus = new Vue({})
 // export default new Vue({})

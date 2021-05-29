@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-list-container" ref="container" v-loading="isLoading">
+  <div class="blog-list-container" ref="scrollContainer" v-loading="isLoading">
     <ul>
       <li v-for="item in fetchData.rows" :key="item.id">
         <div class="thumb" v-if="item.thumb">
@@ -81,6 +81,15 @@ export default {
       };
     },
   },
+  mounted() {
+    this.$bus.$on("setMainScroll", this.handleSetMainScroll);
+    this.$refs.scrollContainer.addEventListener("scroll", this.handleScroll);
+  },
+  beforeDestroy() {
+    this.$bus.$emit("scrollContainer");
+    this.$refs.scrollContainer.removeEventListener("scroll", this.handleScroll);
+    this.$bus.$off("setMainScroll", this.handleSetMainScroll);
+  },
   methods: {
     formatDate,
     async getFetchData() {
@@ -89,6 +98,12 @@ export default {
         this.routeInfo.limit,
         this.routeInfo.categoryId
       );
+    },
+    handleScroll() {
+      this.$bus.$emit("scrollContainer", this.$refs.scrollContainer);
+    },
+    handleSetMainScroll(scrollTop) {
+      this.$refs.scrollContainer.scrollTop = scrollTop;
     },
     handlePageChange(newPage) {
       const query = {
@@ -119,7 +134,7 @@ export default {
     async $route() {
       this.isLoading = true;
       // 滚动高度为0
-      this.$refs.container.scrollTop = 0;
+      this.$refs.scrollContainer.scrollTop = 0;
       this.fetchData = await this.getFetchData();
       this.isLoading = false;
     },

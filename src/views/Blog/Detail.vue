@@ -1,6 +1,6 @@
 <template>
   <LayOut>
-    <div class="main-container" v-loading="isLoading" ref="scroll-container">
+    <div class="main-container" v-loading="isLoading" ref="scrollContainer">
       <Detail :blog="fetchData" v-if="fetchData"></Detail>
       <BlogComment v-if="!isLoading" />
     </div>
@@ -37,14 +37,15 @@ export default {
       return await getBlog(this.$route.params.id);
     },
     handleScroll() {
-      this.$bus.$emit("scrollContainer");
+      this.$bus.$emit("scrollContainer", this.$refs["scrollContainer"]);
+    },
+    handleSetMainScroll(scrollTop) {
+      this.$refs.scrollContainer.scrollTop = scrollTop;
     },
   },
   mounted() {
-    this.$refs["scroll-container"].addEventListener(
-      "scroll",
-      this.handleScroll
-    );
+    this.$refs["scrollContainer"].addEventListener("scroll", this.handleScroll);
+    this.$bus.$on("setMainScroll", this.handleSetMainScroll);
   },
   updated() {
     //解决刷新不选中
@@ -54,11 +55,13 @@ export default {
       location.hash = hashs;
     }, 50);
   },
-  destroyed() {
-    this.$refs["scroll-container"].removeEventListener(
+  beforeDestroy() {
+    this.$bus.$emit("scrollContainer");
+    this.$refs["scrollContainer"].removeEventListener(
       "scroll",
       this.handleScroll
     );
+    this.$bus.$off("setMainScroll", this.handleSetMainScroll);
   },
 };
 </script>
