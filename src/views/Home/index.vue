@@ -42,12 +42,11 @@
 
 
 <script>
-import { getBannerList } from "@/api/banner";
+import { mapState } from "vuex";
 import CarouselItem from "./Carouselitem";
 import Icon from "@/components/Icon";
 import fetchInitData from "@/mixins/getInitData";
 export default {
-  mixins: [fetchInitData()],
   components: {
     CarouselItem,
     Icon,
@@ -70,15 +69,16 @@ export default {
   destroyed() {
     window.removeEventListener("resize", this.handleResize);
   },
+  created() {
+    this.$store.dispatch("banner/fetchBanner");
+  },
   computed: {
     marginTop() {
       return -this.index * this.containerHeight + "px";
     },
+    ...mapState("banner", ["isLoading", "fetchData"]),
   },
   methods: {
-    async getFetchData() {
-      return await getBannerList();
-    },
     handleTransitionEnd() {
       this.switching = false;
     },

@@ -11,8 +11,13 @@ Vue.prototype.$message = showMessage
 //事件总线
 import './eventBus.js'
 import Loading from './directives/loading'
+import Lazy from './directives/lazy'
 Vue.directive('loading', Loading)
+Vue.directive('lazy', Lazy)
+import store from '@/store'
+store.dispatch("setting/fetchSetting");
 new Vue({
+  store,
   router,
   render: h => h(App),
 }).$mount('#app')

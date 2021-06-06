@@ -1,12 +1,15 @@
 <template>
   <div class="site-aside-container">
-    <Avatar
-      url="https://img2.baidu.com/it/u=2909072015,3629141008&fm=26&fmt=auto&gp=0.jpg"
-    />
-    <h1 class="title">Super余的博客</h1>
+    <template v-if="fetchData">
+      <Avatar :url="fetchData.avatar" />
+      <h1 class="title">{{ fetchData.siteTitle }}</h1>
+    </template>
+
     <Menu />
-    <Contact />
-    <p class="footer">黑ICP备17001719号</p>
+    <Contact v-if="fetchData" />
+    <p v-if="fetchData" class="footer">
+      {{ fetchData.icp }}
+    </p>
   </div>
 </template>
 
@@ -14,12 +17,14 @@
 import Avatar from "@/components/Avatar";
 import Menu from "./Menu";
 import Contact from "./Contact";
+import { mapState } from "vuex";
 export default {
   components: {
     Avatar,
     Menu,
     Contact,
   },
+  computed: mapState("setting", ["fetchData"]),
 };
 </script>
 
